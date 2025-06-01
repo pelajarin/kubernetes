@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: populate-default-html
-          image: nginx:1.26.0
+          image: nginx:1.27.5-alpine
           # Nginx is a silly example to use for a stateful application (you should use a deployment for nginx)
           # but this demonstrates how you can use an init container to pre-populate a pod specific config file
           # For example, you might configure a database StatefulSet with some pods having read/write access, and
@@ -36,7 +36,7 @@ spec:
               mountPath: /usr/share/nginx/html
       containers:
         - name: nginx
-          image: nginx:1.26.0
+          image: nginx:1.27.5-alpine
           volumeMounts:
             - name: data
               mountPath: /usr/share/nginx/html
