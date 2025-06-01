@@ -40,12 +40,12 @@
           pkgs.python312
           pkgs.tilt
           pkgs.yq-go
+          pkgs.cloud-provider-kind
         ];
 
         shellHook = ''
           export GOBIN=$(git rev-parse --show-toplevel)/bin
           export PATH=$GOBIN:$PATH
-          go install sigs.k8s.io/cloud-provider-kind@v0.2.0
         '';
       };
     });
