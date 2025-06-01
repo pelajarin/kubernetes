@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: nginx-better
   namespace: 04--deployment
-  labels:
-    app: nginx-better
 spec:
   replicas: 3
   selector:
@@ -17,26 +15,23 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: cgr.dev/chainguard/nginx:latest
+          image: nginx:1.27.5-alpine
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /
-              port: 8080
+              port: 80
           resources:
             limits:
               memory: "50Mi"
+              cpu: "250m"
             requests:
               memory: "50Mi"
               cpu: "250m"
           securityContext:
             allowPrivilegeEscalation: false
-            privileged: false
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-        runAsUser: 1001
-        runAsGroup: 1001
-        runAsNonRoot: true

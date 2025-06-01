@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-minimal
+  namespace: 04--service
   labels:
     foo: deployment-label
   annotations:
@@ -20,4 +21,4 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.26.0
+          image: nginx:1.27.5-alpine
