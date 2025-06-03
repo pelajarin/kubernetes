@@ -1,0 +1,6 @@
+---
+controller:
+  nodeSelector:
+    kubernetes.io/hostname: "kind-worker"
+  hostPort:
+    enabled: true

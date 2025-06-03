@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-minimal
+  namespace: 04--ingress
 spec:
   replicas: 3
   selector:
@@ -14,4 +15,17 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.26.0
+          image: nginx:1.27.5-alpine
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          resources:
+            limits:
+              memory: "500Mi"
+            requests:
+              memory: "500Mi"
+              cpu: "1"
