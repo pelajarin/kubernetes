@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shared-pvc-kind
+  namespace: 04--persistentvolume
 spec:
   # Both pods can only run simultaneously on the same node because
   # PVC has accessModes: [ReadWriteOnce]. Would be better to demo this
@@ -17,7 +18,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.26.0
+          image: nginx:1.27.5-alpine
           volumeMounts:
             - name: data
               mountPath: /some/mount/path
