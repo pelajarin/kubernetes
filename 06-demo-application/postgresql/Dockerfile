@@ -1,3 +1,3 @@
-FROM migrate/migrate:v4.17.1
+FROM migrate/migrate:v4.18.3
 
 COPY ./migrations/* /app/migrations/

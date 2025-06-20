@@ -9,13 +9,13 @@ tasks:
     desc: Start postgres container
     cmds:
       - echo Starting postgres container
-      - docker run -e POSTGRES_PASSWORD=foobarbaz -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres:16.3-alpine
+      - docker run -e POSTGRES_PASSWORD=foobarbaz -v pgdata:/var/lib/postgresql/data -p 5432:5432 --detach postgres:17.4-alpine3.21
 
   run-psql-init-script:
     desc: Execute psql commands
     cmds:
       - |
-        CONTAINER_ID=$(docker ps -q --filter "ancestor=postgres:16.3-alpine")
+        CONTAINER_ID=$(docker ps -q --filter "ancestor=postgres:17.4-alpine3.21")
         docker cp ./migrations/000001_create_users_table.up.sql $CONTAINER_ID:/tmp/
         docker exec $CONTAINER_ID psql -U "postgres" -f /tmp/000001_create_users_table.up.sql
 
