@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.2/service.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-golang
+  namespace: demo-app
+spec:
+  type: ClusterIP
+  selector:
+    app: api-golang
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-node
+  namespace: demo-app
+spec:
+  type: ClusterIP
+  selector:
+    app: api-node
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-react
+  namespace: demo-app
+spec:
+  type: ClusterIP
+  selector:
+    app: client-react-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

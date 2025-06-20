@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.2/job.json
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration-postgres
+  namespace: demo-app
+spec:
+  completions: 1
+  activeDeadlineSeconds: 100
+  backoffLimit: 2
+  template:
+    metadata:
+      labels:
+        app: migration-postgres
+    spec:
+      containers:
+        - name: migration
+          image: sidpalas/devops-directive-kubernetes-course-db-migrator:foobarbaz
+          args:
+            [
+              "-path=/app/migrations",
+              "-database=$(DATABASE_URL)?sslmode=disable",
+              "up",
+            ]
+          envFrom:
+            - secretRef:
+                name: api-golang-config
+                optional: false
+          resources:
+            limits:
+              memory: "50Mi"
+            requests:
+              memory: "50Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsUser: 1001
+            runAsGroup: 1001
+            runAsNonRoot: true
+      restartPolicy: OnFailure
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault

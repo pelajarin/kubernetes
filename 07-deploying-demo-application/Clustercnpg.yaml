@@ -1,0 +1,23 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-example
+  namespace: cnpg-system
+spec:
+  instances: 3
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: cnpg-superuser-bootstrap
+  storage:
+    size: 1Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cnpg-superuser-bootstrap
+  namespace: cnpg-system
+type: kubernetes.io/basic-auth
+stringData:
+  username: postgres
+  password: foobarbaz

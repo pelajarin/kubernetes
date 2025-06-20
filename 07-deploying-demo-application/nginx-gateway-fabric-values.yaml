@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/refs/heads/main/charts/nginx-gateway-fabric/values.schema.json
+---
+# nginxGateway:
+#   gatewayControllerName: gateway.nginx.org/nginx-gateway-controller
+#   gatewayClassName: nginx
+#   nodeSelector:
+#     "kubernetes.io/hostname": kind-control-plane
+#   tolerations:
+#     - key: "node-role.kubernetes.io/control-plane"
+#       operator: "Exists"
+#       effect: "NoSchedule"
+nginx:
+  debug: true
+  service:
+    type: NodePort
+    nodePorts:
+      - port: 31437
+        listenerPort: 80
